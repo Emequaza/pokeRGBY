@@ -1,6 +1,6 @@
 IsStarterPikachuInOurParty::
 	ld hl, wPartySpecies
-	ld de, wPartyMon1OTID
+	ld de, wPartyMon1CatchRate
 	ld bc, wPartyMonOT
 	push hl
 .loop
@@ -13,6 +13,13 @@ IsStarterPikachuInOurParty::
 	jr nz, .curMonNotPlayerPikachu
 	ld h, d
 	ld l, e
+	ld a, LIGHT_BALL_GSC
+	cp [hl]
+	jr nz, .curMonNotPlayerPikachu
+	ld de, wPartyMon1OTID - wPartyMon1CatchRate
+	add hl, de
+	ld d, h
+	ld e, l
 	ld a, [wPlayerID]
 	cp [hl]
 	jr nz, .curMonNotPlayerPikachu
@@ -81,7 +88,12 @@ asm_fce21:
 	ld a, [hl]
 	cp STARTER_PIKACHU
 	jr nz, .notPlayerPikachu
-	ld bc, wPartyMon1OTID - wPartyMon1
+	ld bc, wPartyMon1CatchRate - wPartyMon1
+	add hl, bc
+	ld a, LIGHT_BALL_GSC
+	cp [hl]
+	jr nz, .notPlayerPikachu
+	ld bc, wPartyMon1OTID - wPartyMon1CatchRate
 	add hl, bc
 	ld a, [wPlayerID]
 	cp [hl]
