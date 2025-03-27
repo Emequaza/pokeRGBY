@@ -50,7 +50,7 @@ DEF SHOW EQU $15
 	const HS_DAISY_WALKING                 ; 29
 	const HS_TOWN_MAP                      ; 2A
 	const HS_OAKS_LAB_RIVAL                ; 2B
-	const HS_STARTER_BALL_1                ; 2C
+	const HS_STARTER_BALL_4                ; 2C
 	const HS_OAKS_LAB_OAK_1                ; 2D
 	const HS_POKEDEX_1                     ; 2E
 	const HS_POKEDEX_2                     ; 2F

@@ -213,13 +213,15 @@ OaksLabChoseStarterScript:
 	db $07
 	db $07
 	db $07
+	db $07
+	db $07
 	db $FF
 
 OaksLabRivalTakesPokeballScript:
 	ld a, [wStatusFlags5]
 	bit BIT_SCRIPTED_NPC_MOVEMENT, a
 	jr nz, .asm_1c564
-	ld a, HS_STARTER_BALL_1
+	ld a, HS_STARTER_BALL_4
 	ld [wMissableObjectIndex], a
 	predef HideObject
 	ld a, OAKSLAB_RIVAL
@@ -253,7 +255,7 @@ OaksLabRivalTakesPokeballScript:
 	ld [wPlayerMovingDirection], a
 	ld a, $2
 	ld [wSimulatedJoypadStatesIndex], a
-	ld a, D_RIGHT
+	ld a, D_LEFT
 	ld [wSimulatedJoypadStatesEnd], a
 	ld [wSimulatedJoypadStatesEnd + 1], a
 	call StartSimulatingJoypadStates
@@ -283,9 +285,7 @@ OaksLabPlayerWalksToOakScript:
 
 OaksLabRLE_PlayerWalksToOak:
 	db D_UP, 2
-	db D_LEFT, 3
-	db D_DOWN, 1
-	db D_LEFT, 1
+	db D_LEFT, 2
 	db $FF
 
 OaksLabPlayerReceivesPikachuScript:
