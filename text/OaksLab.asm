@@ -20,15 +20,56 @@ _OaksLabRivalMyPokemonLooksStrongerText::
 	cont "lot stronger."
 	done
 
-_OaksLabThatsAPokeball::
-	text "That's a #"
-	line "BALL. There's a"
-	cont "#MON inside!"
+_OaksLabThoseArePokeBallsText::
+	text "Those are #"
+	line "BALLs. They"
+	cont "contain #MON!"
 	done
 
-_OaksLabOak1GoAheadItsYours::
-	text "OAK: Go ahead,"
-	line "it's yours!"
+_OaksLabYouWantCharmanderText::
+	text "So! You want the"
+	line "fire #MON,"
+	cont "CHARMANDER?"
+	done
+
+_OaksLabYouWantSquirtleText::
+	text "So! You want the"
+	line "water #MON,"
+	cont "SQUIRTLE?"
+	done
+
+_OaksLabYouWantBulbasaurText::
+	text "So! You want the"
+	line "plant #MON,"
+	cont "BULBASAUR?"
+	done
+
+_OaksLabYouWantPikachuText::
+	text "So! You want a"
+	line "diffrent #MON?"
+	done
+
+_OaksLabMonEnergeticText::
+	text "This #MON is"
+	line "really energetic!"
+	prompt
+
+_OaksLabReceivedMonText::
+	text "<PLAYER> received"
+	line "a @"
+	text_ram wNameBuffer
+	text "!@"
+	text_end
+
+_OaksLabLastMonText::
+	text "That's PROF.OAK's"
+	line "last #MON!"
+	done
+
+_OaksLabOak1WhichPokemonDoYouWantText::
+	text "OAK: Now, <PLAYER>,"
+	line "which #MON do"
+	cont "you want?"
 	done
 
 _OaksLabOak1YourPokemonCanFightText::
@@ -39,6 +80,13 @@ _OaksLabOak1YourPokemonCanFightText::
 
 	para "Afterward, go on"
 	line "to the next town."
+	done
+
+_OaksLabOak1RaiseYourYoungPokemonText::
+	text "OAK: <PLAYER>,"
+	line "raise your young"
+	cont "#MON by making"
+	cont "it fight!"
 	done
 
 _OaksLabOak1YouShouldTalkToIt::
@@ -173,16 +221,24 @@ _OaksLabOakChooseMonText::
 	para "Ah, whatever!"
 	line "Just wait there."
 
-	para "Look, <PLAYER>! Do"
-	line "you see that ball"
-	cont "on the table?"
+	para "Here, <PLAYER>!"
 
-	para "It's called a #"
-	line "BALL. It holds a"
-	cont "#MON inside."
+	para "There are 4"
+	line "#MON here!"
 
-	para "You may have it!"
-	line "Go on, take it!"
+	para "Haha!"
+
+	para "They are inside"
+	line "the # BALLs."
+
+	para "When I was young,"
+	line "I was a serious"
+	cont "#MON trainer!"
+
+	para "In my old age, I"
+	line "have only 4 left,"
+	cont "but you can have"
+	cont "one! Choose!"
 	done
 
 _OaksLabRivalWhatAboutMeText::
@@ -196,6 +252,25 @@ _OaksLabOakBePatientText::
 	line "<RIVAL>, I'll give"
 	cont "you one later."
 	done
+	
+_OaksLabOakDontGoAwayYetText::
+	text "OAK: Hey! Don't go"
+	line "away yet!"
+	done
+
+_OaksLabRivalIllTakeThisOneText::
+	text "<RIVAL>: I'll take"
+	line "this one, then!"
+	done
+
+_OaksLabRivalReceivedMonText::
+	text "<RIVAL> received"
+	line "a @"
+	text_ram wNameBuffer
+	text "!@"
+	text_end
+
+
 
 _OaksLabRivalTakesText1::
 	text "<RIVAL>: No way!"
@@ -249,11 +324,6 @@ _OaksLabReceivedText::
 	text_ram wNameBuffer
 	text "!@"
 	text_end
-
-_OaksLabOakDontGoAwayYetText::
-	text "OAK: Hey! Don't go"
-	line "away yet!"
-	done
 
 _OaksLabRivalIllTakeYouOnText::
 	text "<RIVAL>: Wait"
