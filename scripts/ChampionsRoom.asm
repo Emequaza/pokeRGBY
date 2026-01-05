@@ -71,6 +71,20 @@ ChampionsRoomRivalReadyToBattleScript:
 
 	; select which team to use during the encounter
 	ld a, [wRivalStarter]
+	cp STARTER2
+	jr nz, .not_starter_2
+	ld a, $4
+	jr .set_trainer_no
+.not_starter_2
+	cp STARTER3
+	jr nz, .no_starter_3
+	ld a, $5
+	jr .set_trainer_no
+.no_starter_3
+	cp STARTER1
+	jr nz, .set_trainer_no
+	ld a, $6
+.set_trainer_no
 	add $0 ; Wow GameFreak
 	ld [wTrainerNo], a
 

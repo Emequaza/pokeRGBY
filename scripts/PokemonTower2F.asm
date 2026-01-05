@@ -148,7 +148,23 @@ PokemonTower2FRivalText:
 	ld a, OPP_RIVAL2
 	ld [wCurOpponent], a
 	ld a, [wRivalStarter]
+	cp STARTER2
+	jr nz, .not_starter_2
+	ld a, 14
+	jr .set_trainer_no
+.not_starter_2
+	cp STARTER3
+	jr nz, .no_starter_3
+	ld a, 15
+	jr .set_trainer_no
+.no_starter_3
+	cp STARTER1
+	jr nz, .no_starter_1
+	ld a, 16
+	jr .set_trainer_no
+.no_starter_1
 	add $1
+.set_trainer_no
 	ld [wTrainerNo], a
 
 	ld a, SCRIPT_POKEMONTOWER2F_DEFEATED_RIVAL

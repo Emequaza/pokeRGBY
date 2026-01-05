@@ -44,10 +44,15 @@ _OaksLabYouWantBulbasaurText::
 	cont "BULBASAUR?"
 	done
 
-_OaksLabYouWantPikachuText::
-	text "So! You want a"
-	line "diffrent #MON?"
-	done
+_OaksLabYouWantEeveeText::
+	text "OAK: Oh, I see."
+	line "So! I will give"
+	cont "you an EEVEE!"
+	
+	para "It can grow into"
+	line "#MON of varied"
+	cont "element types!"
+	prompt
 
 _OaksLabMonEnergeticText::
 	text "This #MON is"
@@ -68,8 +73,7 @@ _OaksLabLastMonText::
 
 _OaksLabOak1WhichPokemonDoYouWantText::
 	text "OAK: Now, <PLAYER>,"
-	line "which #MON do"
-	cont "you want?"
+	line "can you decide?"
 	done
 
 _OaksLabOak1YourPokemonCanFightText::
@@ -230,6 +234,9 @@ _OaksLabOakChooseMonText::
 
 	para "They are inside"
 	line "the # BALLs."
+
+	para "3 on the table,"
+	line "1 in my pocket."
 
 	para "When I was young,"
 	line "I was a serious"

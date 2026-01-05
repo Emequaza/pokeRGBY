@@ -1288,9 +1288,11 @@ FlareonEvosMoves:
 	db 16, EMBER
 	db 23, QUICK_ATTACK
 	db 30, BITE
+	db 31, EMBER
 	db 36, FIRE_SPIN
 	db 42, SMOG
 	db 47, LEER
+	db 48, RAGE
 	db 52, FLAMETHROWER
 	db 0
 
@@ -1302,6 +1304,7 @@ JolteonEvosMoves:
 	db 16, THUNDERSHOCK
 	db 23, QUICK_ATTACK
 	db 30, DOUBLE_KICK
+	db 31, THUNDERSHOCK
 	db 36, PIN_MISSILE
 	db 42, THUNDER_WAVE
 	db 47, AGILITY
@@ -1316,9 +1319,10 @@ VaporeonEvosMoves:
 	db 16, WATER_GUN
 	db 23, QUICK_ATTACK
 	db 30, BITE
+	db 31, WATER_GUN
 	db 36, AURORA_BEAM
-	db 42, HAZE
 	db 42, MIST
+	db 44, HAZE
 	db 47, ACID_ARMOR
 	db 52, HYDRO_PUMP
 	db 0

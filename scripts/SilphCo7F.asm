@@ -185,7 +185,23 @@ SilphCo7FRivalStartBattleScript:
 	ld a, OPP_RIVAL2
 	ld [wCurOpponent], a
 	ld a, [wRivalStarter]
+	cp STARTER2
+	jr nz, .not_starter_2
+	ld a, 17
+	jr .set_trainer_no
+.not_starter_2
+	cp STARTER3
+	jr nz, .no_starter_3
+	ld a, 18
+	jr .set_trainer_no
+.no_starter_3
+	cp STARTER1
+	jr nz, .no_starter_1
+	ld a, 19
+	jr .set_trainer_no
+.no_starter_1
 	add 4
+.set_trainer_no
 	ld [wTrainerNo], a
 	ld a, SCRIPT_SILPHCO7F_RIVAL_AFTER_BATTLE
 	call SilphCo7FSetCurScript

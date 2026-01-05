@@ -142,6 +142,7 @@ SpecialTrainerMoves:
 	db 3, 4, LEECH_SEED
 	db 4, 1, THUNDERBOLT
 	db 5, 1, ICE_BEAM
+	db 6, 1, FIRE_SPIN
 	db 6, 2, REFLECT
 	db 6, 3, QUICK_ATTACK
 	db 0
@@ -153,8 +154,23 @@ SpecialTrainerMoves:
 	db 4, 1, CONFUSE_RAY
 	db 4, 4, FIRE_SPIN
 	db 5, 1, THUNDERBOLT
-	db 6, 1, AURORA_BEAM
+	db 6, 2, AURORA_BEAM
 	db 6, 3, QUICK_ATTACK
+	db 0
+
+	db RIVAL3, 4
+	db 1, 3, SKY_ATTACK
+	db 6, 3, BLIZZARD
+	db 0
+
+	db RIVAL3, 5
+	db 1, 3, SKY_ATTACK
+	db 6, 3, MEGA_DRAIN
+	db 0
+
+	db RIVAL3, 6
+	db 1, 3, SKY_ATTACK
+	db 6, 3, FIRE_BLAST
 	db 0
 
 	db -1 ; end

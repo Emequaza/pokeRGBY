@@ -366,21 +366,13 @@ OaksLabChoseStarterScriptPik:
 
 .RivalPushesPlayerAwayFromEeveeBall
 	db $00
-	db $00
 	db $07
-	db $07
-	db $07
-	db $07
-	db $07 
 	db $FF
 
 OaksLabRivalTakesPokeballScript:
 	ld a, [wStatusFlags5]
 	bit BIT_SCRIPTED_NPC_MOVEMENT, a
 	jr nz, .asm_1c564
-	ld a, HS_STARTER_BALL_4
-	ld [wMissableObjectIndex], a
-	predef HideObject
 	ld a, OAKSLAB_RIVAL
 	ldh [hSpriteIndex], a
 	ld a, SPRITE_FACING_UP
@@ -403,16 +395,16 @@ OaksLabRivalTakesPokeballScript:
 
 .asm_1c564
 	ld a, [wYCoord]
-	cp 4
+	cp 3
 	ret nz
 	ld a, [wNPCNumScriptedSteps]
 	cp 1
 	ret nz
-	ld a, PLAYER_DIR_LEFT
+	ld a, PLAYER_DIR_DOWN
 	ld [wPlayerMovingDirection], a
 	ld a, $2
 	ld [wSimulatedJoypadStatesIndex], a
-	ld a, D_LEFT
+	ld a, D_DOWN
 	ld [wSimulatedJoypadStatesEnd], a
 	ld [wSimulatedJoypadStatesEnd + 1], a
 	call StartSimulatingJoypadStates
@@ -420,7 +412,7 @@ OaksLabRivalTakesPokeballScript:
 
 OaksLabPlayerWalksToOakScript:
 	ld a, [wYCoord]
-	cp 4
+	cp 5
 	jr z, .asm_1c599
 	ld a, $1
 	ld [wSimulatedJoypadStatesIndex], a
@@ -441,8 +433,9 @@ OaksLabPlayerWalksToOakScript:
 	ret
 
 OaksLabRLE_PlayerWalksToOak:
-	db D_UP, 2
-	db D_LEFT, 2
+	db D_RIGHT, 1
+	db D_UP, 3
+	db D_LEFT, 1
 	db $FF
 
 OaksLabPlayerReceivesPikachuScript:
@@ -504,7 +497,24 @@ OaksLabRivalStartBattleScript:
 	call GetSpritePosition1
 	ld a, OPP_RIVAL1
 	ld [wCurOpponent], a
+	ld a, [wRivalStarter]
+	cp STARTER2
+	jr nz, .not_starter_2
+	ld a, 4
+	jr .set_trainer_no
+.not_starter_2
+	cp STARTER3
+	jr nz, .no_starter_3
+	ld a, 5
+	jr .set_trainer_no
+.no_starter_3
+	cp STARTER1
+	jr nz, .no_starter_1
+	ld a, 6
+	jr .set_trainer_no
+.no_starter_1
 	ld a, $1
+.set_trainer_no
 	ld [wTrainerNo], a
 	ld hl, OaksLabRivalIPickedTheWrongPokemonText
 	ld de, OaksLabRivalAmIGreatOrWhatText
@@ -528,6 +538,9 @@ OaksLabRivalEndBattleScript:
 	; Jolteon if you beat him on Route 22, or Flareon if you
 	; skip or lose that battle.
 	; Otherwise, it will evolve into Vaporeon.
+	ld a, [wPlayerStarter]
+	cp STARTER_PIKACHU
+	jr nz, .keep_rival_starter
 	ld a, [wBattleResult]
 	and a
 	ld b, RIVAL_STARTER_VAPOREON
@@ -536,7 +549,7 @@ OaksLabRivalEndBattleScript:
 .got_rival_starter
 	ld a, b
 	ld [wRivalStarter], a
-
+.keep_rival_starter
 	ld a, ~(A_BUTTON | B_BUTTON)
 	ld [wJoyIgnore], a
 	ld a, PLAYER_DIR_UP
@@ -878,7 +891,6 @@ OaksLab_TextPointers:
 	dw_const OaksLabCharmanderPokeBallText,             TEXT_OAKSLAB_CHARMANDER_POKE_BALL
 	dw_const OaksLabSquirtlePokeBallText,               TEXT_OAKSLAB_SQUIRTLE_POKE_BALL
 	dw_const OaksLabBulbasaurPokeBallText,              TEXT_OAKSLAB_BULBASAUR_POKE_BALL
-	dw_const OaksLabEeveePokeBallText,                  TEXT_OAKSLAB_EEVEE_POKE_BALL
 	dw_const OaksLabOak1Text,                           TEXT_OAKSLAB_OAK1
 	dw_const OaksLabPokedexText,                        TEXT_OAKSLAB_POKEDEX1
 	dw_const OaksLabPokedexText,                        TEXT_OAKSLAB_POKEDEX2
@@ -912,7 +924,6 @@ OaksLab_TextPointers2:
 	dw OaksLabCharmanderPokeBallText
 	dw OaksLabSquirtlePokeBallText
 	dw OaksLabBulbasaurPokeBallText
-	dw OaksLabEeveePokeBallText
 	dw OaksLabOak1Text
 	dw OaksLabPokedexText
 	dw OaksLabPokedexText
@@ -956,32 +967,16 @@ OaksLabEeveePokeBallText:
 	text_asm
 	ld a, $1
 	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	CheckEvent EVENT_GOT_STARTER
-	jp nz, OaksLabLastMonScript
-	CheckEvent EVENT_OAK_ASKED_TO_CHOOSE_MON
+	call YesNoChoice ; yes/no menu
+	ld a, [wCurrentMenuItem]
+	and a
 	jr nz, OaksLabRivalExclamationScript
-	ld a, $0
-	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	ld hl, .Text
-	call PrintText
 	jp TextScriptEnd
-
-.Text:
-	text_far _OaksLabThoseArePokeBallsText
-	text_end
 
 OaksLabRivalExclamationScript:
 	ld hl, .Text
 	call PrintText
-	ld a, $1
-	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	call YesNoChoice ; yes/no menu
-	ld a, [wCurrentMenuItem]
-	and a
-	jp nz, OaksLabMonChoiceEnd
-	ld hl, OaksLabRivalTakesText1
-	call PrintText
-	ld a, $0
+	ld a, OAKSLAB_RIVAL
 	ld [wEmotionBubbleSpriteIndex], a
 	xor a ; EXCLAMATION_BUBBLE
 	ld [wWhichEmotionBubble], a
@@ -991,7 +986,7 @@ OaksLabRivalExclamationScript:
 	jp TextScriptEnd
 
 .Text:
-	text_far _OaksLabYouWantPikachuText
+	text_far _OaksLabYouWantEeveeText
 	text_end
 
 OaksLabCharmanderPokeBallText:
@@ -1198,8 +1193,9 @@ OaksLabOak1Text:
 	ld a, [wStatusFlags4]
 	bit BIT_GOT_STARTER, a
 	jr nz, .already_got_pokemon
-	ld hl, .WhichPokemonDoYouWantText
+	ld hl, .EeveeText
 	call PrintText
+	jp OaksLabEeveePokeBallText
 	jr .done
 .already_got_pokemon
 	ld hl, .YourPokemonCanFightText
@@ -1237,7 +1233,7 @@ OaksLabOak1Text:
 .done
 	jp TextScriptEnd
 
-.WhichPokemonDoYouWantText:
+.EeveeText:
 	text_far _OaksLabOak1WhichPokemonDoYouWantText
 	text_end
 
@@ -1343,6 +1339,8 @@ OaksLabOakBePatientText:
 
 OaksLabRivalReceivedMonTextPik:
 	text_asm
+	ld hl, OaksLabRivalTakesText1
+	call PrintText
 	ld hl, OaksLabRivalTakesText2
 	call PrintText
 	ld hl, OaksLabRivalTakesText3
